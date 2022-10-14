@@ -15,6 +15,13 @@ pipeline {
                    sh 'docker push eddie12345/demo-web:DTA'
                } 
             }
+        }
+        stage('Aqua scanner') {
+            steps {
+               script{
+                   aqua containerRuntime: 'docker', customFlags: '', hideBase: true, hostedImage: 'eddie12345/demo-web:DTA', localImage: '', localToken: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: true, registry: 'Docker Hub', scannerPath: '', showNegligible: false, tarFilePath: ''
+               } 
+            }
         }    
     }
 }
