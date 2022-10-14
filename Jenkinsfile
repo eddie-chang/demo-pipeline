@@ -1,10 +1,11 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
     stages {
-        stage('Test') {
+        stage('Build docker image') {
             steps {
-                sh 'node --version'
-                sh 'svn --version'
+               script{
+                   sh 'docker build -t eddie12345/demo-web:DTA .' 
+               }
             }
         }
     }
