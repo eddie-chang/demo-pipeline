@@ -8,12 +8,13 @@ pipeline {
                }
             }
         }
-        stage('Push docker images')
+        stage('Push docker images') {
             steps {
                script{
                    sh 'cat docker_pass.txt | docker login -u eddie12345 --password-stdin'
                    sh 'docker push eddie12345/demo-web:DTA'
                } 
             }
+        }    
     }
 }
