@@ -4,7 +4,7 @@ pipeline {
         stage('Build docker image') {
             steps {
                script{
-                   sh 'docker build --no-cache -t eddie12345/log4j-demo:DTA -f log4jpoc/Dockerfile' 
+                   sh 'docker build --no-cache -t eddie12345/log4j-demo:DTA -f demo-cve/Dockerfile' 
                }
             }
         }
