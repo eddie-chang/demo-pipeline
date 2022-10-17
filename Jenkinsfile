@@ -11,7 +11,7 @@ pipeline {
         stage('Aqua scanner') {
             steps {
                script{
-                   aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: 'eddie12345/log4j-demo:DTA', localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: false, registry: '', scannerPath: '', showNegligible: false, tarFilePath: ''
+                   aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: 'eddie12345/log4j-demo:DTA', localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'fail', policies: '', register: false, registry: '', scannerPath: '', showNegligible: false, tarFilePath: ''
                } 
             }
         }
