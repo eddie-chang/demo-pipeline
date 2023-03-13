@@ -1,27 +1,38 @@
 pipeline {
     agent any
+    
+    environment {
+        PRISMA_API_URL=https://api.sg.prismacloud.io
+    }
+    
     stages {
-        stage('Build docker image') {
+        stage('Checkout') {
+          steps {
+              git branch: 'main', url: ''https://github.com/eddie-chang/demo-pipeline.git''
+              stash includes: '**/*', name: 'source'
+          }
+        }
+        stage('Checkov') {
             steps {
-               script{
-                   sh 'docker build --no-cache -t eddie12345/log4j-demo:DTA -f demo-cve/Dockerfile demo-cve' 
-               }
+                withCredentials([string(credentialsId: 'fd88a3ff-b980-4d0a-951e-6627f65dd826', variable: 'pc_user'),string(credentialsId: 'JTaxZqE/cMxMtJnsjrbnMJ3fVG4=', variable: 'pc_password')]) {
+                    script {
+                        docker.image('bridgecrew/checkov:latest').inside("--entrypoint=''") {
+                          unstash 'source'
+                          try {
+                              sh 'checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key \$\{pc_user}::\$\{pc_password} --repo-id  eddie-chang/demo-pipeline --branch main'
+                              junit skipPublishingChecks: true, testResults: 'results.xml'
+                          } catch (err) {
+                              junit skipPublishingChecks: true, testResults: 'results.xml'
+                              throw err
+                          }
+                        }
+                    }
+                }
             }
         }
-        stage('Aqua scanner') {
-            steps {
-               script{
-                   aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: 'eddie12345/log4j-demo:DTA', localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'fail', policies: '', register: false, registry: '', scannerPath: '', showNegligible: false, tarFilePath: ''
-               } 
-            }
-        }
-        stage('Push docker images') {
-            steps {
-               script{
-                   sh 'cat docker_pass.txt | docker login -u eddie12345 --password-stdin'
-                   sh 'docker push eddie12345/log4j-demo:DTA'
-               } 
-            }
-        }    
+    }
+    options {
+        preserveStashes()
+        timestamps()
     }
 }
