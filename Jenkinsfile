@@ -3,6 +3,8 @@ pipeline {
     
     environment {
         PRISMA_API_URL='https://api.sg.prismacloud.io'
+        PC_USER='fd88a3ff-b980-4d0a-951e-6627f65dd826'
+        PC_PASSWORD='JTaxZqE/cMxMtJnsjrbnMJ3fVG4='
     }
     
     stages {
@@ -14,7 +16,7 @@ pipeline {
         }
         stage('Checkov') {
             steps {
-                withCredentials([string(credentialsId: 'pc_user', variable: 'fd88a3ff-b980-4d0a-951e-6627f65dd826'),string(credentialsId: 'pc_password', variable: 'JTaxZqE/cMxMtJnsjrbnMJ3fVG4=')]) {
+                withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'),string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
                     script {
                         docker.image('bridgecrew/checkov:latest').inside("--entrypoint=''") {
                           unstash 'source'
