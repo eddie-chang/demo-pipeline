@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
           steps {
-              git branch: 'main', url: ''https://github.com/eddie-chang/demo-pipeline.git''
+              git branch: 'main', url: 'https://github.com/eddie-chang/demo-pipeline.git'
               stash includes: '**/*', name: 'source'
           }
         }
