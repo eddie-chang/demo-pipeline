@@ -1,4 +1,3 @@
 # demo-pipeline
 
-## Test Palo Alto Prisma Cloud with  Jenkins.
-
+## Test Palo Alto Prisma Cloud DevSecOps with Jenkins .
