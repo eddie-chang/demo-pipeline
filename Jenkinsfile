@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        PRISMA_API_URL='https://api.sg.prismacloud.io',
-        PC_USER='fd88a3ff-b980-4d0a-951e-6627f65dd826',
+        PRISMA_API_URL='https://api.sg.prismacloud.io'
+        PC_USER='fd88a3ff-b980-4d0a-951e-6627f65dd826'
         PC_PASSWORD='JTaxZqE/cMxMtJnsjrbnMJ3fVG4='
     }
     
