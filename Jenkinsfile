@@ -21,7 +21,7 @@ pipeline {
                         docker.image('bridgecrew/checkov:latest').inside("--entrypoint=''") {
                           unstash 'source'
                           try {
-                              sh 'checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key \${pc_user}::\${pc_password} --repo-id  eddie-chang/demo-pipeline --branch main'
+                              sh 'checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --prisma-api-url https://api.sg.prismacloud.io --bc-api-key fd88a3ff-b980-4d0a-951e-6627f65dd826::JTaxZqE/cMxMtJnsjrbnMJ3fVG4= --repo-id  eddie-chang/demo-pipeline --branch main'
                               junit skipPublishingChecks: true, testResults: 'results.xml'
                           } catch (err) {
                               junit skipPublishingChecks: true, testResults: 'results.xml'
